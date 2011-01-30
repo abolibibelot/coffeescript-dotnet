@@ -14,10 +14,12 @@ namespace ncoffee
             bool compile = false;
             bool print = false;
             bool help = false;
+            bool bare = false;
 
             var p = new OptionSet()
                 .Add("c|compile", "compile to JavaScript and save as .js files", _ => compile = true)
                 .Add("p|print", "print the compiled JavaScript to stdout", _ => print = true)
+                .Add("b|bare", "compile without the top-level function wrapper", _ => bare = true)
                 .Add("h|help", "display this help message", _ => help = true);
 
             if (args.Length == 0)
@@ -41,7 +43,7 @@ namespace ncoffee
                 {
                     Console.WriteLine("Compiling " + sourcePath);
                     var source = File.ReadAllText(sourcePath);
-                    var result = CoffeeScriptProcessor.Process(source);
+                    var result = CoffeeScriptProcessor.Process(source, bare);
                     File.WriteAllText(StripExtension(sourcePath) + ".js", result);
                 }
                 return;

@@ -8,7 +8,7 @@ namespace CoffeeScript.Compiler.Web.Utils
     /// </summary>
     public class CoffeeScriptProcessor
     {
-        private static readonly string COMPILE_TASK = "CoffeeScript.compile(Source, {bare: true})";
+        private static readonly string COMPILE_TASK = "CoffeeScript.compile(Source, {{bare: {0}}})";
 
         private static ScriptEngine _engine;
         private static readonly object _o = new object();
@@ -28,19 +28,26 @@ namespace CoffeeScript.Compiler.Web.Utils
             }
         }
 
+        public static string Process(string contents)
+        {
+            return Process(contents, false);
+        }
+
+
         /// <summary>
         /// Processes contents as a coffeescript file
         /// </summary>
         /// <param name="contents">The javascript contents</param>
         /// <returns></returns>
-        public static string Process(string contents)
+        public static string Process(string contents, bool bare)
         {
             lock (_o)
             {
                 try
                 {
                     Engine.SetGlobalValue("Source", contents);
-                    return Engine.Evaluate<string>(COMPILE_TASK);
+                    var bareArg = bare ? "true" : "false";
+                    return Engine.Evaluate<string>(String.Format(COMPILE_TASK,bareArg));
                 }
                 catch (Exception)
                 {
