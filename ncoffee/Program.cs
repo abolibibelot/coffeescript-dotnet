@@ -56,7 +56,7 @@ namespace ncoffee
                                        ? sourcePath
                                        : Path.Combine(outputDir, new FileInfo(sourcePath).Name);
                         
-                        File.WriteAllText(StripExtension(dest) + ".js", result);
+                        File.WriteAllText(StripExtension(dest) + ".js", result,Encoding.UTF8);
                     }
                 }
                 return;
