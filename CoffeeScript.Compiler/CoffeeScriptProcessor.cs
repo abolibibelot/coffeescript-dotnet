@@ -43,17 +43,9 @@ namespace CoffeeScript.Compiler.Web.Utils
         {
             lock (_o)
             {
-                try
-                {
-                    Engine.SetGlobalValue("Source", contents);
-                    var bareArg = bare ? "true" : "false";
-                    return Engine.Evaluate<string>(String.Format(COMPILE_TASK,bareArg));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return null;
-                }
+                Engine.SetGlobalValue("Source", contents);
+                var bareArg = bare ? "true" : "false";
+                return Engine.Evaluate<string>(String.Format(COMPILE_TASK,bareArg));
             }
         }
     }

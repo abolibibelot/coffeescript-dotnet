@@ -12,18 +12,14 @@ namespace ncoffee
     {
         static void Main(string[] args)
         {
-            bool compile = false;
-            bool print = false;
-            bool help = false;
-            bool bare = false;
-            string outputDir = null;
+            var opt = new CompilerOptions();
 
             var p = new OptionSet()
-                .Add("c|compile", "compile to JavaScript and save as .js files", _ => compile = true)
-                .Add("o=|output=","set the directory for compiled JavaScript", d => outputDir = d )
-                .Add("p|print", "print the compiled JavaScript to stdout", _ => print = true)
-                .Add("b|bare", "compile without the top-level function wrapper", _ => bare = true)
-                .Add("h|help", "display this help message", _ => help = true);
+                .Add("c|compile", "compile to JavaScript and save as .js files", _ => opt.Compile = true)
+                .Add("o=|output=","set the directory for compiled JavaScript", d => opt.OutputDir = d )
+                .Add("p|print", "print the compiled JavaScript to stdout", _ => opt.Print = true)
+                .Add("b|bare", "compile without the top-level function wrapper", _ => opt.Bare = true)
+                .Add("h|help", "display this help message", _ => opt.Help = true);
 
             if (args.Length == 0)
             {
@@ -31,7 +27,19 @@ namespace ncoffee
                 return;
             }
 
-            var path = p.Parse(args).First();
+            string path = null;
+
+            try
+            {
+                path = p.Parse(args).First();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error parsing arguments: " + ex.Message);
+                DisplayHelp(p);
+                Environment.Exit(-1);
+            }
+            
 
 
 
@@ -42,19 +50,29 @@ namespace ncoffee
                 toCompile = Glob(path, "*.coffee");
 
             
-            if (compile)
+            if (opt.Compile)
             {
                 foreach (var sourcePath in toCompile)
                 {
                     var source = File.ReadAllText(sourcePath,Encoding.UTF8);
-                    var result = CoffeeScriptProcessor.Process(source, bare);
-                    if (print)
+                    string result = "";
+                    try
+                    {
+                        result = CoffeeScriptProcessor.Process(source, opt.Bare);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error while compiling " + sourcePath + " :");
+                        Console.WriteLine(ex.Message);
+                    }
+                    
+                    if (opt.Print)
                         Console.WriteLine(result);
                     else
                     {
-                        var dest = (outputDir == null)
+                        var dest = (opt.OutputDir == null)
                                        ? sourcePath
-                                       : Path.Combine(outputDir, new FileInfo(sourcePath).Name);
+                                       : Path.Combine(opt.OutputDir, new FileInfo(sourcePath).Name);
                         
                         File.WriteAllText(StripExtension(dest) + ".js", result,Encoding.UTF8);
                     }
@@ -62,7 +80,7 @@ namespace ncoffee
                 return;
             }
 
-            if (help)
+            if (opt.Help)
             {
                 DisplayHelp(p);
                 return;
@@ -94,4 +112,14 @@ namespace ncoffee
             p.WriteOptionDescriptions(Console.Out);
         }
     }
+
+    class CompilerOptions
+    {
+        public bool Compile { get; set; }
+        public bool Print { get; set; }
+        public bool Help { get; set; }
+        public bool Bare { get; set; }
+        public string OutputDir { get; set; }
+    }
+
 }
