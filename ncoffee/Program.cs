@@ -42,7 +42,7 @@ namespace ncoffee
                     Console.WriteLine("Compiling " + sourcePath);
                     var source = File.ReadAllText(sourcePath);
                     var result = CoffeeScriptProcessor.Process(source);
-                    File.WriteAllText(StripExtension(path) + ".js", result);
+                    File.WriteAllText(StripExtension(sourcePath) + ".js", result);
                 }
                 return;
             }
@@ -67,7 +67,7 @@ namespace ncoffee
         private static string StripExtension(string fileName)
         {
             var idx = fileName.LastIndexOf(".");
-            return (idx == -1 || idx == fileName.Length - 1 )? fileName : fileName.Substring(idx + 1);
+            return (idx == -1 || idx == fileName.Length - 1 )? fileName : fileName.Substring(0,idx);
         }
 
 
