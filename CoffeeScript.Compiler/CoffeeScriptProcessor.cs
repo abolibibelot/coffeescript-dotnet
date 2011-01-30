@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Jurassic;
 
 namespace CoffeeScript.Compiler.Web.Utils
@@ -16,22 +13,23 @@ namespace CoffeeScript.Compiler.Web.Utils
         private static ScriptEngine _engine;
         private static readonly object _o = new object();
 
+        static CoffeeScriptProcessor()
+        {
+            _engine = new ScriptEngine();
+            _engine.Execute(ResourceReader.GetFromResources("CoffeeScript.Compiler.coffeescript.js"));
+        }
+
+
         private static ScriptEngine Engine
         {
             get
             {
-                if (_engine == null)
-                {
-                    _engine = new ScriptEngine();
-                    _engine.Execute(Resources.CoffeeScript);
-                }
-
                 return _engine;
             }
         }
 
         /// <summary>
-        /// Precesses contents as a coffeescript file
+        /// Processes contents as a coffeescript file
         /// </summary>
         /// <param name="contents">The javascript contents</param>
         /// <returns></returns>
@@ -44,7 +42,7 @@ namespace CoffeeScript.Compiler.Web.Utils
                     Engine.SetGlobalValue("Source", contents);
                     return Engine.Evaluate<string>(COMPILE_TASK);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return null;
                 }
