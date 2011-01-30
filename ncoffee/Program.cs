@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using CoffeeScript.Compiler.Web.Utils;
 using Mono.Options;
+using System.Text;
 
 namespace ncoffee
 {
@@ -15,9 +16,11 @@ namespace ncoffee
             bool print = false;
             bool help = false;
             bool bare = false;
+            string outputDir = null;
 
             var p = new OptionSet()
                 .Add("c|compile", "compile to JavaScript and save as .js files", _ => compile = true)
+                .Add("o=|output=","set the directory for compiled JavaScript", d => outputDir = d )
                 .Add("p|print", "print the compiled JavaScript to stdout", _ => print = true)
                 .Add("b|bare", "compile without the top-level function wrapper", _ => bare = true)
                 .Add("h|help", "display this help message", _ => help = true);
@@ -30,6 +33,8 @@ namespace ncoffee
 
             var path = p.Parse(args).First();
 
+
+
             IEnumerable<string> toCompile;
             if (!Directory.Exists(path) && File.Exists(path))
                 toCompile = new[] { path };
@@ -41,10 +46,18 @@ namespace ncoffee
             {
                 foreach (var sourcePath in toCompile)
                 {
-                    Console.WriteLine("Compiling " + sourcePath);
-                    var source = File.ReadAllText(sourcePath);
+                    var source = File.ReadAllText(sourcePath,Encoding.UTF8);
                     var result = CoffeeScriptProcessor.Process(source, bare);
-                    File.WriteAllText(StripExtension(sourcePath) + ".js", result);
+                    if (print)
+                        Console.WriteLine(result);
+                    else
+                    {
+                        var dest = (outputDir == null)
+                                       ? sourcePath
+                                       : Path.Combine(outputDir, new FileInfo(sourcePath).Name);
+                        
+                        File.WriteAllText(StripExtension(dest) + ".js", result);
+                    }
                 }
                 return;
             }
@@ -75,7 +88,8 @@ namespace ncoffee
 
         private static void DisplayHelp(OptionSet p)
         {
-            Console.WriteLine("ncoffee a .net command line compiler based on coffeescript");
+            Console.WriteLine("ncoffee a .net coffeescript command line compiler");
+            Console.WriteLine("coffeescript is (c)2010 Jeremy Ashkenas - https://github.com/jashkenas/coffee-script");
             Console.WriteLine("Usage: ncoffee [options] path/to/script.coffee");
             p.WriteOptionDescriptions(Console.Out);
         }

@@ -49,8 +49,9 @@ namespace CoffeeScript.Compiler.Web.Utils
                     var bareArg = bare ? "true" : "false";
                     return Engine.Evaluate<string>(String.Format(COMPILE_TASK,bareArg));
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     return null;
                 }
             }
