@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeScript.Compiler", "..\CoffeeScript.Compiler\CoffeeScript.Compiler.csproj", "{699F78A5-E1E7-4FB5-BC55-FA62E3A6A095}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeScript.Compiler", "CoffeeScript.Compiler\CoffeeScript.Compiler.csproj", "{699F78A5-E1E7-4FB5-BC55-FA62E3A6A095}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ncoffee", "..\ncoffee\ncoffee.csproj", "{A56A1CFA-4D79-40D2-BB50-91BB018BDC62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ncoffee", "ncoffee\ncoffee.csproj", "{A56A1CFA-4D79-40D2-BB50-91BB018BDC62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
