@@ -39,8 +39,12 @@ namespace ncoffee
                 DisplayHelp(p);
                 Environment.Exit(-1);
             }
-            
 
+            //if (new[] { opt.Compile, opt.Help, opt.Print }.Count(op => op) > 1)
+            //{
+            //    Console.WriteLine("Error: compile, help, and print options are mutually exclusive");
+            //    Environment.Exit(-1);
+            //}
 
 
             IEnumerable<string> toCompile;
@@ -91,9 +95,9 @@ namespace ncoffee
         {
             if (!Directory.Exists(path))
                 yield break;
-            foreach (var file in Directory.EnumerateFiles(path, pattern))
+            foreach (var file in Directory.GetFiles(path, pattern))
                 yield return file;
-            foreach (var child in Directory.EnumerateDirectories(path).SelectMany(dir => Glob(dir, pattern)))
+            foreach (var child in Directory.GetDirectories(path).SelectMany(dir => Glob(dir, pattern)))
                 yield return child;
         }
 
