@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CoffeeScript.Compiler.Web.Utils;
+using CoffeeScript.Compiler;
 using Mono.Options;
 using System.Text;
 
@@ -10,6 +10,9 @@ namespace ncoffee
 {
     class Program
     {
+
+        const string Version = "1.0.1";
+
         static void Main(string[] args)
         {
             var opt = new CompilerOptions();
@@ -19,12 +22,12 @@ namespace ncoffee
                 .Add("o=|output=","set the directory for compiled JavaScript", d => opt.OutputDir = d )
                 .Add("p|print", "print the compiled JavaScript to stdout", _ => opt.Print = true)
                 .Add("b|bare", "compile without the top-level function wrapper", _ => opt.Bare = true)
+                .Add("v|version", "display coffeescript version", _ => DisplayVersion())
                 .Add("h|help", "display this help message", _ => opt.Help = true);
 
             if (args.Length == 0)
             {
                 DisplayHelp(p);
-                return;
             }
 
             string path = null;
@@ -37,14 +40,10 @@ namespace ncoffee
             {
                 Console.WriteLine("Error parsing arguments: " + ex.Message);
                 DisplayHelp(p);
-                Environment.Exit(-1);
             }
 
-            //if (new[] { opt.Compile, opt.Help, opt.Print }.Count(op => op) > 1)
-            //{
-            //    Console.WriteLine("Error: compile, help, and print options are mutually exclusive");
-            //    Environment.Exit(-1);
-            //}
+            if (opt.Help)
+                DisplayHelp(p);
 
 
             IEnumerable<string> toCompile;
@@ -84,11 +83,12 @@ namespace ncoffee
                 return;
             }
 
-            if (opt.Help)
-            {
-                DisplayHelp(p);
-                return;
-            }
+        }
+
+        private static void DisplayVersion()
+        {
+            Console.WriteLine("Coffeescript version " + Version);
+            Environment.Exit(0);
         }
 
         private static IEnumerable<string> Glob(string path, string pattern)
@@ -112,8 +112,10 @@ namespace ncoffee
         {
             Console.WriteLine("ncoffee a .net coffeescript command line compiler");
             Console.WriteLine("coffeescript is (c)2010 Jeremy Ashkenas - https://github.com/jashkenas/coffee-script");
+            Console.WriteLine("coffeescript version: " + Version);
             Console.WriteLine("Usage: ncoffee [options] path/to/script.coffee");
             p.WriteOptionDescriptions(Console.Out);
+            Environment.Exit(0);
         }
     }
 

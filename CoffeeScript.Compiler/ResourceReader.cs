@@ -5,7 +5,7 @@ namespace CoffeeScript.Compiler
 
     class ResourceReader 
     {
-        public static string GetFromResources(string resourceName)
+        public static string ReadString(string resourceName)
         {
             var asm = typeof(ResourceReader).Assembly;
             using (var reader = new StreamReader(asm.GetManifestResourceStream(resourceName)))

@@ -1,22 +1,22 @@
 ﻿using System;
 using Jurassic;
 
-namespace CoffeeScript.Compiler.Web.Utils
+namespace CoffeeScript.Compiler
 {
     /// <summary>
     /// Processes CoffeeScript files into javascript
     /// </summary>
     public class CoffeeScriptProcessor
     {
-        private static readonly string COMPILE_TASK = "CoffeeScript.compile(Source, {{bare: {0}}})";
+        private const string COMPILE_TASK = "CoffeeScript.compile(Source, {{bare: {0}}})";
 
-        private static ScriptEngine _engine;
+        private static readonly ScriptEngine _engine;
         private static readonly object _o = new object();
 
         static CoffeeScriptProcessor()
         {
             _engine = new ScriptEngine();
-            _engine.Execute(ResourceReader.GetFromResources("CoffeeScript.Compiler.coffeescript.js"));
+            _engine.Execute(ResourceReader.ReadString("CoffeeScript.Compiler.coffeescript.js"));
         }
 
 
