@@ -16,9 +16,8 @@ namespace CoffeeScript.Compiler
         static CoffeeScriptProcessor()
         {
             _engine = new ScriptEngine();
-            Console.WriteLine("1");
+            //FIXME: This line takes 1:30 minutes when run from test or web. In perhaps a second when run from ncoffee....
             var js = ResourceReader.ReadString("CoffeeScript.Compiler.coffeescript.js");
-            Console.WriteLine("2");
             _engine.Execute(js);
         }
 
