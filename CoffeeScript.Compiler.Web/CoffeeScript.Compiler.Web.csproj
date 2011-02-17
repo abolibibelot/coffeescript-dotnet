@@ -88,6 +88,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CoffeeBin\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -100,6 +101,7 @@
   <ItemGroup>
     <None Include="Scripts\example.coffee" />
     <Content Include="Views\Home\Index.cshtml" />
+    <None Include="Scripts\sub\example.coffee" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoffeeScript.Compiler\CoffeeScript.Compiler.csproj">
