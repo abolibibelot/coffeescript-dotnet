@@ -20,7 +20,7 @@ namespace CoffeeScript.Compiler.Web.Controllers
         {
             string path = Server.MapPath(string.Format("~/Scripts/{0}.coffee", script));
             string text = System.IO.File.ReadAllText(path);
-            string src = Utils.CoffeeScriptProcessor.Process(text);
+            string src = CoffeeScriptProcessor.Process(text);
             
             return JavaScript(src);
         }

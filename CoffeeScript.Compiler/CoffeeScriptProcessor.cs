@@ -16,7 +16,10 @@ namespace CoffeeScript.Compiler
         static CoffeeScriptProcessor()
         {
             _engine = new ScriptEngine();
-            _engine.Execute(ResourceReader.ReadString("CoffeeScript.Compiler.coffeescript.js"));
+            Console.WriteLine("1");
+            var js = ResourceReader.ReadString("CoffeeScript.Compiler.coffeescript.js");
+            Console.WriteLine("2");
+            _engine.Execute(js);
         }
 
 
