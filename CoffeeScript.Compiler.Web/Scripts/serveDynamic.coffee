@@ -1,0 +1,1 @@
+﻿alert "dynamically compiled script loaded"

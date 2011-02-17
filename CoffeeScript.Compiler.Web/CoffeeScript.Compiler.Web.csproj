@@ -66,15 +66,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\coffeescript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -91,17 +85,12 @@
     <Folder Include="CoffeeBin\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Utils\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\example.coffee" />
+    <None Include="Scripts\serveDynamic.coffee" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="Scripts\sub\example.coffee" />
+    <None Include="Scripts\serveStatic.coffee" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoffeeScript.Compiler\CoffeeScript.Compiler.csproj">

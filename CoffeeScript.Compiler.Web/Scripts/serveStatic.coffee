@@ -1,0 +1,1 @@
+﻿alert "statically compiled script loaded"
