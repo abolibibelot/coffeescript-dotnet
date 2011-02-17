@@ -3,9 +3,13 @@ obj
 bin
 CoffeeBin
 <<<<<<< HEAD
+<<<<<<< HEAD
 OutputDir
 =======
 >>>>>>> c7308a7... Fix silly bug stopping after compileall regardless of watch flag.
+=======
+OutputDir
+>>>>>>> e5afe37... Get rid of files that should have been ignored from the start...
 _ReSharper.*
 *.csproj.user
 *.ReSharper.user
