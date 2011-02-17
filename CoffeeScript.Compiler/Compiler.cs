@@ -37,15 +37,12 @@ namespace CoffeeScript.Compiler
 
             if (opt.Compile)
             {
-                CompileMany(toCompile, opt);                
+                CompileMany(toCompile, opt);
+                return;
             }
 
             if (opt.Watch)
-            {
                 StartWatching(opt);
-            }
-
-            return;
         }
 
         private static IEnumerable<string> Glob(string path, string pattern)
@@ -61,7 +58,6 @@ namespace CoffeeScript.Compiler
 
         private static void StartWatching(CompilerOptions opt)
         {
-            Console.WriteLine("watching:" + opt.Path);
             var watcher = new ChangeWatcher(opt.Path, opt,
                                 (path, options) =>
                                 {
