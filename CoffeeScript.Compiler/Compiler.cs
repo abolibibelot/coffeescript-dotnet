@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using CoffeeScript.Compiler.Util;
 using ncoffee;
-using Composable.System;
-using Composable.System.IO;
 
 namespace CoffeeScript.Compiler
 {

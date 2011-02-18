@@ -1,11 +1,11 @@
 ﻿#region usings
 
 using System;
-using System.IO;
-using NUnit.Framework;
-using Composable.System.IO;
 using System.Linq;
-using Composable.System.Linq;
+using System.IO;
+using CoffeeScript.Compiler.Util;
+using NUnit.Framework;
+
 
 #endregion
 
@@ -27,20 +27,20 @@ namespace CoffeeScript.Compiler.Tests
                                            Path = sourceDir.ToString()
                                        });
 
-            var sourceFiles = sourceDir.GetFilesResursive().WithExtension(".coffee");
+            var sourceFiles = sourceDir.Glob("*.coffee");
             var expectedTargetFiles = sourceFiles
                 .Select(src => Path.ChangeExtension(src.FullName, "js"))
                 .Select(src => src.Replace(sourceDir.ToString(), OutputDir.ToString()))
                 .OrderBy(f => f)
                 .ToArray();
 
-            var actualTargetFiles = OutputDir.GetFilesResursive().Select(f => f.FullName).OrderBy(f => f).ToArray();
+            var actualTargetFiles = OutputDir.Glob("*.*").Select(f => f.FullName).OrderBy(f => f).ToArray();
 
             Console.WriteLine("Expecting:");
-            expectedTargetFiles.ForEach(f => Console.WriteLine(f));
+            expectedTargetFiles.ForEach(Console.WriteLine);
 
             Console.WriteLine("Got:");
-            actualTargetFiles.ForEach(f => Console.WriteLine(f));
+            actualTargetFiles.ForEach(Console.WriteLine);
 
             Assert.That(actualTargetFiles, Is.EqualTo(expectedTargetFiles));
 

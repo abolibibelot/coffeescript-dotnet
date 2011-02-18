@@ -2,8 +2,7 @@
 
 using System;
 using System.IO;
-using Composable.System.IO;
-using Composable.System.Linq;
+using CoffeeScript.Compiler.Util;
 using NUnit.Framework;
 
 #endregion
@@ -21,7 +20,7 @@ namespace CoffeeScript.Compiler.Tests
         [SetUp]
         public void CleanOutputDir()
         {
-            OutputDir.GetFilesResursive().ForEach(f => f.Delete());
+            OutputDir.Glob("*.*").ForEach(f => f.Delete());
         }
     }
 }

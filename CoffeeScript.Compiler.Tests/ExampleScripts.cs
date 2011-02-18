@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Composable.System.IO;
+using CoffeeScript.Compiler.Util;
 
 namespace CoffeeScript.Compiler.Tests
 {
