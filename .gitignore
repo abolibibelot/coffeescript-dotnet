@@ -1,8 +1,11 @@
 obj
 bin
+CoffeeBin
+OutputDir
 _ReSharper.*
 *.csproj.user
 *.ReSharper.user
 *.ReSharper
 *.suo
 *.cache
+*.user
