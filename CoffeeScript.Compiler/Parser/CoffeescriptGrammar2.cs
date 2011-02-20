@@ -147,15 +147,11 @@ namespace CoffeeScript.Compiler.Parser
             // ReSharper restore InconsistentNaming
 
             UnaryOp.Rule = ToTerm("+") | ToTerm("-");
-            BinaryOp.Rule = ToTerm("+") | "-" | "*";
 
             CompoundAssignOp.Rule = ToTerm("+=") | "-=" | "*=" | "/=";
 
             Eol.Rule = NewLine | ";";
 
-            Body.Rule = MakePlusRule(Body, Line);
-            Line.Rule = Expression + Eol
-                       | Statement + Eol;
             Statement.Rule = Return | Throw | Comment | STATEMENT;
             Expression.Rule = Value | Invocation | Code | Operation | Assign
                               | If | Try | While | For | Switch | Class;
@@ -163,9 +159,6 @@ namespace CoffeeScript.Compiler.Parser
             Block.Rule = Indent + Body + Dedent;
             AlphaNumeric.Rule = NUMBER | STRING;
             Literal.Rule = AlphaNumeric | JS | BOOL; // | REGEX; FIXME
-
-            Assign.Rule = (Assignable + "=" + Expression)
-                          | (Assignable + "=" + Indent + Expression + Dedent);
 
             AssignObj.Rule = ObjAssignable | (ObjAssignable + ":" + Expression)
                              | (ObjAssignable + ":" + Indent + Expression + Dedent);
