@@ -12,7 +12,7 @@ namespace CoffeeScript.Compiler.Tests
         [Test]
         public void throws_SourceNotFound_exception()
         {
-            Assert.Throws<SourceNotFound>(() => new Compiler().Compile(new CompilerOptions
+            Assert.Throws<SourceNotFoundException>(() => new Compiler().Compile(new CompilerOptions
                                                                            {
                                                                                Compile = true,
                                                                                Path = @"Q:\nonsense\nonsense\nonsense\nonsense"

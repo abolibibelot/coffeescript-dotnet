@@ -53,12 +53,12 @@
     <Compile Include="Compiler.cs" />
     <Compile Include="CompilerOptions.cs" />
     <Compile Include="Util\Extensions.cs" />
-    <Compile Include="SourceNotFound.cs" />
+    <Compile Include="SourceNotFoundException.cs" />
     <Compile Include="Parser\CoffeescriptGrammar.cs" />
     <Compile Include="Parser\CoffeescriptGrammar2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceReader.cs" />
-    <Compile Include="TargetNotFound.cs" />
+    <Compile Include="TargetNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="coffeescript.js" />

@@ -2,9 +2,9 @@
 
 namespace CoffeeScript.Compiler
 {
-    public class TargetNotFound : DirectoryNotFoundException
+    public class TargetNotFoundException : DirectoryNotFoundException
     {
-        public TargetNotFound(string path):base(path)
+        public TargetNotFoundException(string path):base(path)
         {            
         }
     }

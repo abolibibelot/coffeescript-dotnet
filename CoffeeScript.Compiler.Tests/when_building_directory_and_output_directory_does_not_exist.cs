@@ -13,7 +13,7 @@ namespace CoffeeScript.Compiler.Tests
         [Test]
         public void throws_TargetNotFound_exception()
         {
-            Assert.Throws<TargetNotFound>(() => new Compiler().Compile(new CompilerOptions
+            Assert.Throws<TargetNotFoundException>(() => new Compiler().Compile(new CompilerOptions
                                                                            {
                                                                                Compile = true,
                                                                                Path = Environment.CurrentDirectory,

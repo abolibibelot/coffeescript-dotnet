@@ -15,12 +15,12 @@ namespace CoffeeScript.Compiler
         {
             if (!File.Exists(opt.Path) && !Directory.Exists(opt.Path))
             {
-                throw new SourceNotFound(opt.Path);
+                throw new SourceNotFoundException(opt.Path);
             }
 
             if(! opt.OutputDir.IsNullOrWhiteSpace() && !opt.OutputDir.AsDirectory().Exists)
             {
-                throw new TargetNotFound(opt.OutputDir);
+                throw new TargetNotFoundException(opt.OutputDir);
             }
 
             IEnumerable<string> toCompile;
