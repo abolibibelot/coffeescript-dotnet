@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Jurassic;
 
 namespace CoffeeScript.Compiler
@@ -16,8 +17,9 @@ namespace CoffeeScript.Compiler
         static CoffeeScriptProcessor()
         {
             _engine = new ScriptEngine();
-            //FIXME: This line takes 1:30 minutes when run from test or web. In perhaps a second when run from ncoffee....
             var js = ResourceReader.ReadString("CoffeeScript.Compiler.coffeescript.js");
+            //FIXME-WEIRD: The following line take ages when ncoffee is compiled in Debug and 
+            //a lot less when it's in release. It's not related to Jurassic...
             _engine.Execute(js);
         }
 
