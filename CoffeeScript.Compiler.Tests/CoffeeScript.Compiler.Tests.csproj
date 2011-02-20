@@ -34,6 +34,9 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <HintPath>..\Lib\Irony.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.9.10348\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -53,10 +56,13 @@
   <ItemGroup>
     <Compile Include="CompilerTestBase.cs" />
     <Compile Include="ExampleScripts.cs" />
+    <Compile Include="Grammar\Expressions.cs" />
+    <Compile Include="Grammar\GrammarFixture.cs" />
     <Compile Include="when_building_directory_and_source_directory_does_not_exist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_building_directory.cs" />
     <Compile Include="when_building_directory_and_output_directory_does_not_exist.cs" />
+    <Compile Include="when_output_is_unspecified_and_source_exists.cs" />
     <Compile Include="when_watching_directory_and_file_changes.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +74,9 @@
     <None Include="ExampleScriptFolder\Valid\Hierarchy\Sub2\valid.coffee" />
     <None Include="ExampleScriptFolder\Valid\Hierarchy\valid.coffee" />
     <None Include="ExampleScriptFolder\Valid\valid.coffee" />
+    <None Include="Grammar\Snippets\assign.coffee">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

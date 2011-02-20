@@ -18,12 +18,7 @@ namespace CoffeeScript.Compiler
                 throw new SourceNotFound(opt.Path);
             }
 
-            if (opt.OutputDir.IsNullOrWhiteSpace())
-            {
-                opt.OutputDir = Path.GetDirectoryName(opt.Path);
-            }
-
-            if(!opt.OutputDir.AsDirectory().Exists)
+            if(! opt.OutputDir.IsNullOrWhiteSpace() && !opt.OutputDir.AsDirectory().Exists)
             {
                 throw new TargetNotFound(opt.OutputDir);
             }
@@ -84,7 +79,11 @@ namespace CoffeeScript.Compiler
                     Console.WriteLine(result);
                 else
                 {
-                    var dest = sourcePath.Replace(opt.Path, opt.OutputDir);
+                    string dest;
+                    dest = opt.OutputDir.IsNullOrWhiteSpace() ? 
+                                        sourcePath 
+                                        : sourcePath.Replace(opt.Path, opt.OutputDir);
+                    
                     dest = Path.ChangeExtension(dest, ".js");
                     var destDir = new FileInfo(dest).Directory;
                     if(!destDir.Exists)

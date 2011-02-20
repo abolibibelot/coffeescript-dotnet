@@ -12,6 +12,7 @@ namespace CoffeeScript.Compiler.Tests
             private static readonly DirectoryInfo Base = ExampleScripts.Base.SubDir("Valid");
             public static readonly DirectoryInfo Hierarchy = Base.SubDir("Hierarchy");
             public static readonly FileInfo SingleScript = CompilerTestBase.BaseDir.File("valid.coffee");
+            public static readonly string Relative = "../../ExampleScriptFolder/Valid/";
         }
 
         public static class InValid
